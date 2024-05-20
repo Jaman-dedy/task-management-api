@@ -1,5 +1,11 @@
 // src/user/user.controller.ts
-import { Controller, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
 
@@ -13,7 +19,14 @@ export class UserController {
   }
 
   @Post('login')
-  async login(@Body() user: User): Promise<{ access_token: string } | null> {
-    return this.userService.login(user.username, user.password);
+  async login(@Body() user: User): Promise<{ access_token: string }> {
+    try {
+      return await this.userService.login(user.username, user.password);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new BadRequestException('Invalid credentials');
+      }
+      throw error;
+    }
   }
 }
