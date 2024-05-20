@@ -1,4 +1,3 @@
-// src/task/task.gateway.ts
 import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { Task } from './task.schema';

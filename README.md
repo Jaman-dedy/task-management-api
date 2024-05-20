@@ -1,73 +1,101 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Task Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is a RESTful API for a simple task management system built with NestJS, MongoDB, and WebSocket.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- User Authentication: Users can register and log in using JWT (JSON Web Token) authentication.
+- CRUD Operations: Users can create, read, update, and delete tasks.
+- Real-time Updates: WebSocket is used to provide real-time updates for task creation, update, and deletion.
+- API Documentation: Swagger is integrated to provide interactive API documentation.
+- Error Handling: Proper error handling and validation are implemented using NestJS's exception filters and DTOs.
+- Containerization: Docker and Docker Compose are used for easy setup and deployment.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Prerequisites
+
+- Node.js (version 14 or higher)
+- MongoDB
+- Docker (optional)
 
 ## Installation
 
-```bash
-$ npm install
-```
+1. Clone the repository:
+   ```
+   git clone git@github.com:Jaman-dedy/task-management-api.git
+   ```
 
-## Running the app
+2. Install the dependencies:
+   ```
+   cd task-management-api
+   npm install
+   ```
 
-```bash
-# development
-$ npm run start
+3. Set up the environment variables:
+   - Create a `.env` file in the root directory.
+   - Add the following variables to the `.env` file:
+     ```
+     MONGODB_URI=<your-mongodb-uri>
+     JWT_SECRET=<your-jwt-secret>
+     ```
+     Replace `<your-mongodb-uri>` with your MongoDB connection URI and `<your-jwt-secret>` with a secret key for JWT.
 
-# watch mode
-$ npm run start:dev
+4. Start the application:
+   ```
+   npm run start
+   ```
 
-# production mode
-$ npm run start:prod
-```
+   The API will be accessible at `http://localhost:3000`.
 
-## Test
+## Docker Usage
 
-```bash
-# unit tests
-$ npm run test
+1. Make sure you have Docker and Docker Compose installed.
 
-# e2e tests
-$ npm run test:e2e
+2. Build and start the containers:
+   ```
+   docker-compose up -d
+   ```
 
-# test coverage
-$ npm run test:cov
-```
+   This will build the Docker image and start the containers.
 
-## Support
+3. Access the API at `http://localhost:3000`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+4. To stop the containers:
+   ```
+   docker-compose down
+   ```
 
-## Stay in touch
+## API Documentation
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+The API documentation is generated using Swagger. To access the interactive documentation:
 
-## License
+1. Start the application.
 
-Nest is [MIT licensed](LICENSE).
+2. Open your web browser and visit `http://localhost:3000/api`.
+
+3. Explore the available endpoints, request/response schemas, and test the API directly from the Swagger UI.
+
+## WebSocket Usage
+
+To test the WebSocket functionality and receive real-time updates:
+
+1. Start the application.
+
+2. Use a WebSocket client (e.g., `socket.io-client`) to connect to `http://localhost:3000`.
+
+3. Listen for the following events:
+   - `taskCreated`: Emitted when a new task is created.
+   - `taskUpdated`: Emitted when a task is updated.
+   - `taskDeleted`: Emitted when a task is deleted.
+
+## Possible Future Improvements
+
+- Add user roles and permissions for different levels of access control.
+- Implement pagination and filtering for task retrieval.
+- Add support for task assignment and collaboration between users.
+- Integrate with a front-end framework for a complete task management application.
+- Implement automated tests for better code quality and reliability.
+- Use a more robust database solution for scalability (e.g., PostgreSQL).
+- Implement rate limiting and request throttling for API security.
+- Add support for file attachments and media uploads for tasks.
+- Implement task reminders and notifications.
+- Integrate with third-party services for additional functionality (e.g., email notifications, calendar integration).

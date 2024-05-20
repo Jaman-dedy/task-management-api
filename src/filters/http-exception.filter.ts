@@ -1,4 +1,3 @@
-// src/filters/http-exception.filter.ts
 import {
   ExceptionFilter,
   Catch,
@@ -22,7 +21,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    console.log('exception :>> ', exception);
     const responseBody = {
       statusCode: httpStatus,
       timestamp: new Date().toISOString(),
