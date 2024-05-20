@@ -13,11 +13,24 @@ import { TaskService } from './task.service';
 import { Task } from './task.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { ValidationPipe } from '@nestjs/common';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiBearerAuth,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('tasks')
+@ApiBearerAuth()
+@Controller('tasks')
 @Controller('tasks')
 export class TaskController {
   constructor(private taskService: TaskService) {}
 
+  @ApiOperation({ summary: 'Create a new task' })
+  @ApiResponse({ status: 201, description: 'Task created successfully' })
+  @ApiBody({ type: Task })
   @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body(ValidationPipe) task: Task) {
